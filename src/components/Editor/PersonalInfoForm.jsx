@@ -55,7 +55,6 @@ const PersonalInfoForm = ({
     onCancel();
   };
 
-  // Check if form has any data
   const hasData =
     data.fullName || data.email || data.phone || data.address || data.summary;
 
@@ -70,9 +69,6 @@ const PersonalInfoForm = ({
             <h2 className="text-xl font-semibold text-gray-900">
               Personal Information
             </h2>
-            {/* <p className="text-sm text-gray-500">
-              Your basic details and contact information
-            </p> */}
           </div>
         </div>
         {!isEditing && hasData && (
@@ -226,37 +222,6 @@ const PersonalInfoForm = ({
                   )}
                 </div>
               </div>
-
-              {/* {(formData.email || formData.phone || formData.address) && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">
-                  {formData.email && (
-                    <div className="flex items-center">
-                      <Mail className="h-3.5 w-3.5 mr-2 text-gray-400" />
-                      <span className="truncate">{formData.email}</span>
-                    </div>
-                  )}
-                  {formData.phone && (
-                    <div className="flex items-center">
-                      <Phone className="h-3.5 w-3.5 mr-2 text-gray-400" />
-                      <span>{formData.phone}</span>
-                    </div>
-                  )}
-                  {formData.address && (
-                    <div className="flex items-center">
-                      <MapPin className="h-3.5 w-3.5 mr-2 text-gray-400" />
-                      <span className="truncate">{formData.address}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {formData.summary && (
-                <div className="pt-2">
-                  <p className="text-gray-700 leading-relaxed">
-                    {formData.summary}
-                  </p>
-                </div>
-              )} */}
             </>
           ) : (
             <div className="text-center py-8 text-gray-500">
