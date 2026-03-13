@@ -75,20 +75,8 @@ export const useCVData = () => {
     }));
   };
 
-  const resetForm = () => {
-    setEditingSection(null);
-    setEditingItem(null);
-  };
-
-  const startEdit = (section, item = null) => {
-    setEditingSection(section);
-    setEditingItem(item);
-  };
-
   const resetAll = () => {
     setCvData(initialCVData);
-    setEditingSection(null);
-    setEditingItem(null);
   };
 
   return {
@@ -102,8 +90,6 @@ export const useCVData = () => {
     updateExperience,
     removeExperience,
     updateLayout,
-    resetForm,
-    startEdit,
     resetAll,
   };
 };

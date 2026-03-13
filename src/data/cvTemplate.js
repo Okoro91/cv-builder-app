@@ -57,3 +57,33 @@ export const initialCVData = {
     },
   ],
 };
+
+export const layoutOptions = {
+  headerPositions: [
+    {
+      id: "top",
+      name: "Top",
+      description: "Header at the top",
+    },
+    {
+      id: "left",
+      name: "Left",
+      description: "Header on the left side",
+    },
+    {
+      id: "right",
+      name: "Right",
+      description: "Header on the right side",
+    },
+  ],
+  colors: [
+    "#2563eb", // blue
+    "#059669", // green
+    "#7c3aed", // purple
+    "#dc2626", // red
+    "#ea580c", // orange
+    "#0891b2", // cyan
+    "#475569", // gray
+    "#000000", // black
+  ],
+};
