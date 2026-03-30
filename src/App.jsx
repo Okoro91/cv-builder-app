@@ -8,12 +8,15 @@ import ExperienceForm from "./components/Editor/ExperienceForm";
 import CVPreview from "./components/Preview/CVPreview";
 import LayoutSelector from "./components/Layout/LayoutSelector";
 import { useCVData } from "./hooks/useCVData";
+import ColorPicker from "./components/Layout/ColorPicker";
 
 const App = () => {
   const cvPreviewRef = useRef(null);
 
   const {
     cvData,
+    editingSection,
+    editingItem,
     updatePersonalInfo,
     addEducation,
     updateEducation,
@@ -96,6 +99,10 @@ const App = () => {
     updateLayout({ themeColor: color });
   };
 
+  const isEditingPersonalInfo = editingSection === "personalInfo";
+  const isEditingEducation = editingSection === "education";
+  const isEditingExperience = editingSection === "experience";
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
@@ -131,10 +138,11 @@ const App = () => {
             )}
 
             <PersonalInfoForm
+              data={cvData.personalInfo || {}}
               onSave={handlePersonalInfoSave}
               onEdit={() => startEdit("personalInfo")}
               onCancel={resetForm}
-              data={cvData.personalInfo || {}}
+              isEditing={isEditingPersonalInfo}
             />
             <EducationForm
               items={cvData.education || []}
@@ -143,6 +151,7 @@ const App = () => {
               onRemove={removeEducation}
               onEdit={handleEducationEdit}
               onCancelEdit={resetForm}
+              editingId={isEditingEducation ? editingItem : null}
             />
             <ExperienceForm
               items={cvData.experience || []}
@@ -151,6 +160,7 @@ const App = () => {
               onRemove={removeExperience}
               onEdit={handleExperienceEdit}
               onCancelEdit={resetForm}
+              editingId={isEditingExperience ? editingItem : null}
             />
           </div>
 

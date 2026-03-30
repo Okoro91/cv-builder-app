@@ -7,6 +7,13 @@ export const useCVData = () => {
     return saved ? JSON.parse(saved) : initialCVData;
   });
 
+  const [editingSection, setEditingSection] = useState(null);
+  const [editingItem, setEditingItem] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("cvData", JSON.stringify(cvData));
+  }, [cvData]);
+
   const updatePersonalInfo = (data) => {
     setCvData((prev) => ({
       ...prev,
@@ -75,8 +82,20 @@ export const useCVData = () => {
     }));
   };
 
+  const resetForm = () => {
+    setEditingSection(null);
+    setEditingItem(null);
+  };
+
+  const startEdit = (section, item = null) => {
+    setEditingSection(section);
+    setEditingItem(item);
+  };
+
   const resetAll = () => {
     setCvData(initialCVData);
+    setEditingSection(null);
+    setEditingItem(null);
   };
 
   return {
@@ -90,6 +109,10 @@ export const useCVData = () => {
     updateExperience,
     removeExperience,
     updateLayout,
+    editingSection,
+    editingItem,
+    startEdit,
+    resetForm,
     resetAll,
   };
 };
