@@ -34,7 +34,15 @@ const App = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showColors, setShowColors] = useState(false);
 
-  const safeLayout = cvData.layout;
+  const safeLayout = cvData.layout || {
+    type: "standard",
+    headerPosition: "top",
+    showPhoto: true,
+    themeColor: "#2563eb",
+    fontSize: "medium",
+    spacing: "normal",
+    isPlain: false,
+  };
 
   const handlePersonalInfoSave = (data) => {
     updatePersonalInfo(data);
@@ -92,11 +100,11 @@ const App = () => {
   };
 
   const handleHeaderPositionChange = (position) => {
-    updateLayout({ headerPosition: position });
+    updateLayout({ ...safeLayout, headerPosition: position });
   };
 
   const handleColorChange = (color) => {
-    updateLayout({ themeColor: color });
+    updateLayout({ ...safeLayout, themeColor: color });
   };
 
   const isEditingPersonalInfo = editingSection === "personalInfo";
