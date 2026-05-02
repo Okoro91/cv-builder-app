@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <p className="text-lg font-semibold">CV Builder Pro</p>
+            <p className="text-lg font-semibold">MI CV Builder Pro</p>
             <p className="text-gray-400 text-sm">
               © {new Date().getFullYear()} All rights reserved
             </p>
@@ -34,8 +34,14 @@ const Footer = () => {
           <div className="mt-4 md:mt-0 flex items-center">
             <p className="text-gray-400 text-sm flex items-center">
               Made with{" "}
-              <Heart className="h-3 w-3 mx-1 text-red-500 fill-current" /> by
-              React Devs
+              <Heart className="h-3 w-3 mx-1 text-red-500 fill-current" /> by{" "}
+              <a
+                href="https://github.com/Okoro91"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                mi okoro
+              </a>
             </p>
           </div>
         </div>

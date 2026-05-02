@@ -8,7 +8,7 @@ const Header = () => {
           <div className="flex items-center space-x-3">
             <FileText className="h-8 w-8" />
             <div>
-              <h1 className="text-2xl font-bold">CV Builder Pro</h1>
+              <h1 className="text-2xl font-bold">MI CV Builder Pro</h1>
               <p className="text-blue-100 text-sm">
                 Create your professional CV in minutes
               </p>

@@ -330,7 +330,7 @@ const CVPreview = forwardRef(({ cvData }, ref) => {
             }`}
           >
             <p>
-              CV generated with CV Builder Pro •{" "}
+              CV generated with MI CV Builder Pro •{" "}
               {new Date().toLocaleDateString()}
             </p>
           </div>
