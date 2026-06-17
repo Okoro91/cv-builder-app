@@ -30,13 +30,16 @@ const App = () => {
     updateExperience,
     removeExperience,
     addCustomSection,
+    updateCustomSection,
+    removeCustomSection,
+    addCustomItem,
+    updateCustomItem,
+    removeCustomItem,
     updateLayout,
     resetForm,
     startEdit,
     resetAll,
   } = useCVData();
-
-  console.log(cvData.customSections);
 
   const [showPreview, setShowPreview] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
@@ -65,6 +68,11 @@ const App = () => {
   const handleExperienceUpdate = (id, data) => {
     updateExperience(id, data);
     resetForm();
+  };
+
+  const handleupdateCustomSection = (id, data) => {
+    updateCustomSection(id, data);
+    // resetForm();
   };
 
   const handleReset = () => {
@@ -167,7 +175,11 @@ const App = () => {
             <CustomSectionForm
               sections={cvData.customSections || []}
               onAdd={addCustomSection}
-              onCancelEdit={resetForm}
+              onUpdate={handleupdateCustomSection}
+              onRemove={removeCustomSection}
+              onAddItem={addCustomItem}
+              onUpdateItem={updateCustomItem}
+              onRemoveItem={removeCustomItem}
             />
           </div>
 

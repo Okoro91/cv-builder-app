@@ -90,16 +90,68 @@ export const useCVData = () => {
     }));
   };
 
-  // const addExperience = (experience) => {
-  //   const newExperience = {
-  //     id: Date.now(),
-  //     ...experience,
-  //   };
-  //   setCvData((prev) => ({
-  //     ...prev,
-  //     experience: [...prev.experience, newExperience],
-  //   }));
-  // };
+  const updateCustomSection = (id, data) => {
+    setCvData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((section) =>
+        section.id === id ? { ...section, ...data } : section,
+      ),
+    }));
+  };
+
+  const removeCustomSection = (id) => {
+    setCvData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.filter(
+        (section) => section.id !== id,
+      ),
+    }));
+  };
+
+  const addCustomItem = (sectionId, item) => {
+    const newItem = {
+      id: Date.now(),
+      ...item,
+    };
+    setCvData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((section) =>
+        section.id === sectionId
+          ? { ...section, items: [...section.items, newItem] }
+          : section,
+      ),
+    }));
+  };
+
+  const updateCustomItem = (sectionId, itemId, data) => {
+    setCvData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              items: section.items.map((item) =>
+                item.id === itemId ? { ...item, ...data } : item,
+              ),
+            }
+          : section,
+      ),
+    }));
+  };
+
+  const removeCustomItem = (sectionId, itemId) => {
+    setCvData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              items: section.items.filter((item) => item.id !== itemId),
+            }
+          : section,
+      ),
+    }));
+  };
 
   const updateLayout = (layout) => {
     setCvData((prev) => ({
@@ -135,6 +187,11 @@ export const useCVData = () => {
     updateExperience,
     removeExperience,
     addCustomSection,
+    updateCustomSection,
+    removeCustomSection,
+    addCustomItem,
+    updateCustomItem,
+    removeCustomItem,
     updateLayout,
     editingSection,
     editingItem,
