@@ -10,6 +10,11 @@ import LayoutSelector from "./components/Layout/LayoutSelector";
 import { useCVData } from "./hooks/useCVData";
 import ColorPicker from "./components/Layout/ColorPicker";
 
+// new entry
+
+import CustomSectionForm from "./components/Editor/CustomSectionForm";
+import CustomSectionManager from "./components/Editor/CustomSectionManager";
+
 const App = () => {
   const cvPreviewRef = useRef(null);
 
@@ -24,11 +29,14 @@ const App = () => {
     addExperience,
     updateExperience,
     removeExperience,
+    addCustomSection,
     updateLayout,
     resetForm,
     startEdit,
     resetAll,
   } = useCVData();
+
+  console.log(cvData.customSections);
 
   const [showPreview, setShowPreview] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
@@ -49,30 +57,14 @@ const App = () => {
     resetForm();
   };
 
-  const handleEducationAdd = (education) => {
-    addEducation(education);
-  };
-
   const handleEducationUpdate = (id, data) => {
     updateEducation(id, data);
     resetForm();
   };
 
-  const handleEducationEdit = (id) => {
-    startEdit("education", id);
-  };
-
-  const handleExperienceAdd = (experience) => {
-    addExperience(experience);
-  };
-
   const handleExperienceUpdate = (id, data) => {
     updateExperience(id, data);
     resetForm();
-  };
-
-  const handleExperienceEdit = (id) => {
-    startEdit("experience", id);
   };
 
   const handleReset = () => {
@@ -86,10 +78,12 @@ const App = () => {
   };
 
   const togglePreview = () => setShowPreview(!showPreview);
+
   const toggleSettings = () => {
     setShowSettings(!showSettings);
     setShowColors(false);
   };
+
   const toggleColors = () => {
     setShowColors(!showColors);
     setShowSettings(false);
@@ -154,21 +148,26 @@ const App = () => {
             />
             <EducationForm
               items={cvData.education || []}
-              onAdd={handleEducationAdd}
+              onAdd={addEducation}
               onUpdate={handleEducationUpdate}
               onRemove={removeEducation}
-              onEdit={handleEducationEdit}
+              onEdit={(id) => startEdit("education", id)}
               onCancelEdit={resetForm}
               editingId={isEditingEducation ? editingItem : null}
             />
             <ExperienceForm
               items={cvData.experience || []}
-              onAdd={handleExperienceAdd}
+              onAdd={addExperience}
               onUpdate={handleExperienceUpdate}
               onRemove={removeExperience}
-              onEdit={handleExperienceEdit}
+              onEdit={(id) => startEdit("experience", id)}
               onCancelEdit={resetForm}
               editingId={isEditingExperience ? editingItem : null}
+            />
+            <CustomSectionForm
+              sections={cvData.customSections || []}
+              onAdd={addCustomSection}
+              onCancelEdit={resetForm}
             />
           </div>
 

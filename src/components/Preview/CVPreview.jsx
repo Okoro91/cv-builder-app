@@ -108,7 +108,6 @@ const CVPreview = forwardRef(({ cvData }, ref) => {
       );
     }
 
-    // Placeholder when no image is provided
     return (
       <div className="shrink-0">
         <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-linear-to-br from-blue-100 to-indigo-100 border-4 border-white shadow-md flex items-center justify-center">

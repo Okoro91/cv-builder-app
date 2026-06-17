@@ -56,6 +56,7 @@ export const initialCVData = {
       ],
     },
   ],
+  customSections: [],
 };
 
 export const layoutOptions = {

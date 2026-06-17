@@ -75,6 +75,32 @@ export const useCVData = () => {
     }));
   };
 
+  // section code
+
+  const addCustomSection = (section) => {
+    const newSection = {
+      id: Date.now(),
+      name: section.name,
+      description: section.description || "",
+      items: section.items || [],
+    };
+    setCvData((prev) => ({
+      ...prev,
+      customSections: [newSection, ...prev.customSections],
+    }));
+  };
+
+  // const addExperience = (experience) => {
+  //   const newExperience = {
+  //     id: Date.now(),
+  //     ...experience,
+  //   };
+  //   setCvData((prev) => ({
+  //     ...prev,
+  //     experience: [...prev.experience, newExperience],
+  //   }));
+  // };
+
   const updateLayout = (layout) => {
     setCvData((prev) => ({
       ...prev,
@@ -108,6 +134,7 @@ export const useCVData = () => {
     addExperience,
     updateExperience,
     removeExperience,
+    addCustomSection,
     updateLayout,
     editingSection,
     editingItem,
