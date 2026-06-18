@@ -2,9 +2,36 @@ import { useState, useEffect } from "react";
 import { initialCVData } from "../data/cvTemplate";
 
 export const useCVData = () => {
+  // const [cvData, setCvData] = useState(() => {
+  //   const saved = localStorage.getItem("cvData");
+  //   return saved ? JSON.parse(saved) : initialCVData;
+  // });
+
   const [cvData, setCvData] = useState(() => {
-    const saved = localStorage.getItem("cvData");
-    return saved ? JSON.parse(saved) : initialCVData;
+    try {
+      const saved = localStorage.getItem("cvData");
+
+      if (!saved) return initialCVData;
+
+      const parsedData = JSON.parse(saved);
+
+      return {
+        ...initialCVData,
+        ...parsedData,
+
+        personalInfo: {
+          ...initialCVData.personalInfo,
+          ...parsedData.personalInfo,
+        },
+
+        education: parsedData.education || [],
+        experience: parsedData.experience || [],
+        customSections: parsedData.customSections || [],
+      };
+    } catch (error) {
+      console.error("Failed to load CV data:", error);
+      return initialCVData;
+    }
   });
 
   const [editingSection, setEditingSection] = useState(null);
@@ -86,7 +113,7 @@ export const useCVData = () => {
     };
     setCvData((prev) => ({
       ...prev,
-      customSections: [newSection, ...prev.customSections],
+      customSections: [newSection, ...(prev.customSections || [])],
     }));
   };
 

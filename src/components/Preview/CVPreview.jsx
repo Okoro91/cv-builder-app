@@ -16,6 +16,7 @@ const CVPreview = forwardRef(({ cvData }, ref) => {
     personalInfo: cvData?.personalInfo || {},
     education: cvData?.education || [],
     experience: cvData?.experience || [],
+    customSections: cvData?.customSections || [],
     layout: {
       headerPosition: cvData?.layout?.headerPosition || "top",
       showPhoto: cvData?.layout?.showPhoto ?? true,
@@ -26,7 +27,8 @@ const CVPreview = forwardRef(({ cvData }, ref) => {
     },
   };
 
-  const { personalInfo, education, experience, layout } = safeData;
+  const { personalInfo, education, experience, customSections, layout } =
+    safeData;
 
   const getLayoutClasses = () => {
     const baseClasses = "p-8 transition-all duration-300";
@@ -291,6 +293,80 @@ const CVPreview = forwardRef(({ cvData }, ref) => {
                   />,
                   education,
                 )}
+
+              {/* Custom Sections */}
+              {customSections.map((section) => (
+                <div key={section.id} className="mb-8">
+                  <div className="flex items-center mb-4">
+                    <div
+                      className="p-2 rounded-md mr-3"
+                      style={
+                        layout.isPlain
+                          ? { backgroundColor: "#f3f4f6" }
+                          : { backgroundColor: `${layout.themeColor}20` }
+                      }
+                    >
+                      <Award className="h-5 w-5" style={getAccentStyle()} />
+                    </div>
+                    <h2
+                      className="text-xl font-semibold"
+                      style={getAccentStyle()}
+                    >
+                      {section.name || "Untitled Section"}
+                    </h2>
+                  </div>
+
+                  {section.description && (
+                    <p className="text-gray-600 mb-4">{section.description}</p>
+                  )}
+
+                  <div className="space-y-4">
+                    {(section.items || []).map((item, index) => (
+                      <div
+                        key={item.id || index}
+                        className="border-l-4 pl-4 py-1"
+                        style={{ borderColor: layout.themeColor }}
+                      >
+                        <div className="flex justify-between items-start mb-1">
+                          <h3 className="font-semibold text-gray-900">
+                            {item.title || "Untitled"}
+                          </h3>
+                          {item.date && (
+                            <span className="text-sm text-gray-500">
+                              {item.date}
+                            </span>
+                          )}
+                        </div>
+                        {item.subtitle && (
+                          <p className="text-gray-600 text-sm mb-2">
+                            {item.subtitle}
+                          </p>
+                        )}
+                        {item.description && (
+                          <p className="text-gray-700 mb-2">
+                            {item.description}
+                          </p>
+                        )}
+                        {item.details && item.details.length > 0 && (
+                          <ul className="space-y-1 ml-4">
+                            {item.details.map((detail, idx) => (
+                              <li
+                                key={idx}
+                                className="text-sm text-gray-600 flex"
+                              >
+                                <span className="mr-2" style={getAccentStyle()}>
+                                  •
+                                </span>
+                                <span>{detail}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
 
               {/* Empty state */}
               {experience.length === 0 && education.length === 0 && (

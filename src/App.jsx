@@ -13,7 +13,6 @@ import ColorPicker from "./components/Layout/ColorPicker";
 // new entry
 
 import CustomSectionForm from "./components/Editor/CustomSectionForm";
-import CustomSectionManager from "./components/Editor/CustomSectionManager";
 
 const App = () => {
   const cvPreviewRef = useRef(null);
