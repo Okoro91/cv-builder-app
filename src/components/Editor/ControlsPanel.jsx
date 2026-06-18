@@ -11,6 +11,7 @@ import {
 
 const ControlsPanel = ({
   onExportPDF,
+  isDownloading,
   onPrint,
   onCopy,
   onReset,
@@ -28,10 +29,11 @@ const ControlsPanel = ({
         <div className="flex flex-wrap gap-3">
           <button
             onClick={onExportPDF}
+            disabled={isDownloading}
             className="btn-primary flex items-center"
           >
             <Download className="h-4 w-4 mr-2" />
-            Export PDF
+            {isDownloading ? "Generating..." : "Download PDF"}
           </button>
 
           <button onClick={onPrint} className="btn-secondary flex items-center">

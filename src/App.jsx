@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { forwardRef, useState, useRef } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ControlsPanel from "./components/Editor/ControlsPanel";
@@ -9,12 +9,15 @@ import CVPreview from "./components/Preview/CVPreview";
 import LayoutSelector from "./components/Layout/LayoutSelector";
 import { useCVData } from "./hooks/useCVData";
 import ColorPicker from "./components/Layout/ColorPicker";
-
-// new entry
-
 import CustomSectionForm from "./components/Editor/CustomSectionForm";
 
+// pdf dowloaded
+import { pdf } from "@react-pdf/renderer";
+import CVPDF from "./utils/CVPDF";
+
 const App = () => {
+  const [isDownloading, setIsDownloading] = useState(false);
+
   const cvPreviewRef = useRef(null);
 
   const {
@@ -52,6 +55,30 @@ const App = () => {
     fontSize: "medium",
     spacing: "normal",
     isPlain: false,
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      setIsDownloading(true);
+
+      // Generate PDF
+      const blob = await pdf(<CVPDF cvData={cvData} />).toBlob();
+
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${cvData?.personalInfo?.fullName || "CV"}_${new Date().toISOString().split("T")[0]}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const handlePersonalInfoSave = (data) => {
@@ -124,6 +151,8 @@ const App = () => {
           toggleSettings={toggleSettings}
           showColors={showColors}
           toggleColors={toggleColors}
+          onExportPDF={handleDownloadPDF}
+          isDownloading={isDownloading}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 justify-center">
